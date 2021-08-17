@@ -1,0 +1,15 @@
+{% extends 'polls/base.html' %}
+
+{% block body %}
+	<form action="{% url 'polls:detail' question.id %}" method="post">
+		{% csrf_token %}
+		<fieldset>
+    	<legend><h1>{{ question.question_text }}</h1></legend>
+		{% for option in question.choice_set.all %}
+			<input type="radio" name="choice" id="option{{ forloop.counter }}" value="{{ option.id }}">
+        	<label for="option{{ forloop.counter }}">{{ option.choice_text }}</label><br>		
+		{% endfor %}
+		</fieldset>
+		<input type="submit" value="vote">
+	</form>
+{% endblock %}
